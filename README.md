@@ -2,10 +2,10 @@
 
 Bot de telegram que indica a los usuarios los tiempos de llegada de los tranvías de zaragoza a las distintas paradas
 
-## Table of Contents
+## Tabla de contenidos
 
 1. [Getting Started](#getting-started)
-1. [Prerequisites](#prerequisites)
+1. [Requisitos](#requisitos)
 1. [Installing](#installing)
 1. [Running the tests](#running-the-tests)
 1. [Break down into end to end tests](#break-down-into-end-to-end-tests)
@@ -24,9 +24,18 @@ These instructions will get you a copy of the project up and running on your loc
 
 **[Back to top](#table-of-contents)**
 
-### Prerequisites
+### Requisitos
 
-What things you need to install the software and how to install them
+Este proyecto esta implementado haciendo uso de la herramienta
+[Pipenv](https://docs.pipenv.org/) la cual ayuda al encapsulamiento del proyecto.
+
+Para poder hacer uso de esto hará falta instalarlo en tu sistema. Una vez instalado
+las demás dependencias estan definidas en el fichero [Pipfile](Pipfile). Para
+instalarlas, simplemente ejecuta el comando `pipenv install`
+
+- [Python Telegram Bot](https://github.com/python-telegram-bot/)
+- [Requests](http://docs.python-requests.org/en/master/)
+- [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
 
 **[Back to top](#table-of-contents)**
 
@@ -52,7 +61,7 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Running the tests
 
@@ -116,7 +125,7 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 **[Back to top](#table-of-contents)**
 
