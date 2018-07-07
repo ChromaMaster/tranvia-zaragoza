@@ -4,19 +4,21 @@ Bot de telegram que indica a los usuarios los tiempos de llegada de los tranvía
 
 ## Tabla de contenidos
 
-1. [Getting Started](#getting-started)
-1. [Requisitos](#requisitos)
-1. [Installing](#installing)
-1. [Running the tests](#running-the-tests)
-1. [Break down into end to end tests](#break-down-into-end-to-end-tests)
-1. [And coding style tests](#and-coding-style-tests)
-1. [Deployment](#deployment)
-1. [Built With](#built-with)
-1. [Contributing](#contributing)
-1. [Versioning](#versioning)
-1. [Authors](#authors)
-1. [License](#license)
-1. [Acknowledgments](#acknowledgments)
+- [Tranvia Zaragoza - Telegram Bot](#tranvia-zaragoza---telegram-bot)
+    - [Tabla de contenidos](#tabla-de-contenidos)
+    - [Getting Started](#getting-started)
+        - [Requisitos](#requisitos)
+        - [Installing](#installing)
+    - [Running the tests](#running-the-tests)
+        - [Break down into end to end tests](#break-down-into-end-to-end-tests)
+        - [And coding style tests](#and-coding-style-tests)
+    - [Deployment](#deployment)
+    - [Built With](#built-with)
+    - [Contributing](#contributing)
+    - [Versioning](#versioning)
+    - [Authors](#authors)
+    - [License](#license)
+    - [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 
@@ -33,7 +35,7 @@ Para poder hacer uso de esto hará falta instalarlo en tu sistema. Una vez insta
 las demás dependencias estan definidas en el fichero [Pipfile](Pipfile). Para
 instalarlas, simplemente ejecuta el comando `pipenv install`
 
-- [Python Telegram Bot](https://github.com/python-telegram-bot/)
+- [Python Telegram Bot](https://github.com/python-telegram-bot/python-telegram-bot)
 - [Requests](http://docs.python-requests.org/en/master/)
 - [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
 
