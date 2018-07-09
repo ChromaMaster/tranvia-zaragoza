@@ -1,0 +1,3 @@
+# This file contains the commands that the bot can actually perform
+help - Ayuda de uso del bot
+sobre_nosotros - Informate acerca de quien es el responsable del bot

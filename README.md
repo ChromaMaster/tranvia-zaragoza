@@ -1,14 +1,15 @@
 # Tranvia Zaragoza - Telegram Bot
 
-Bot de telegram que indica a los usuarios los tiempos de llegada de los tranvías de zaragoza a las distintas paradas
+Bot de telegram que indica a los usuarios los tiempos de llegada de los tranvías
+de zaragoza a las distintas paradas
 
 ## Tabla de contenidos
 
 - [Tranvia Zaragoza - Telegram Bot](#tranvia-zaragoza---telegram-bot)
     - [Tabla de contenidos](#tabla-de-contenidos)
-    - [Getting Started](#getting-started)
+    - [Comenzando](#comenzando)
         - [Requisitos](#requisitos)
-        - [Installing](#installing)
+        - [Instalacion](#instalacion)
     - [Running the tests](#running-the-tests)
         - [Break down into end to end tests](#break-down-into-end-to-end-tests)
         - [And coding style tests](#and-coding-style-tests)
@@ -20,11 +21,18 @@ Bot de telegram que indica a los usuarios los tiempos de llegada de los tranvía
     - [License](#license)
     - [Acknowledgments](#acknowledgments)
 
-## Getting Started
+## Comenzando
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Para poder utilizar puedes descargarlo utilizando lo siguiente
 
-**[Back to top](#table-of-contents)**
+```sh
+git clone https://gitlab.unizar.es/pulsar/tranvia-zaragoza.git
+cd tranvia-zaragoza
+```
+
+Sigue los pasos mostrados abajo para instalar los **Requisitos** y para la **Instalacion**
+
+**[Volver arriba](#tabla-de-contenidos)**
 
 ### Requisitos
 
@@ -39,29 +47,23 @@ instalarlas, simplemente ejecuta el comando `pipenv install`
 - [Requests](http://docs.python-requests.org/en/master/)
 - [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
+
+### Instalacion
+
+Para iniciar el bot, lo primero que hace falta es definir la configuración
+de este. Para ello, dentro del fichero `etc/config.yaml` se debe poner el token 
+del bot obtenido del (BotFather)[https://telegram.me/BotFather].
 
 ```
-Give examples
+---
+app:
+  token: "<TU_TOKEN_AQUI>"
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Una vez realizado esto, se puede ejecutar el bot desde el **virtualenv**.
+Para acceder a este, una vez en el mismo directorio del proyecto se ejecuta
+`pipenv shell` y a continuación `python3 main.py`.
 
 **[Volver arriba](#tabla-de-contenidos)**
 
@@ -69,7 +71,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 Explain how to run the automated tests for this system
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ### Break down into end to end tests
 
@@ -79,7 +81,7 @@ Explain what these tests test and why
 Give an example
 ```
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ### And coding style tests
 
@@ -89,13 +91,13 @@ Explain what these tests test and why
 Give an example
 ```
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Built With
 
@@ -103,33 +105,33 @@ Add additional notes about how to deploy this on a live system
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **....** - *Initial work* - [...](https://github.com)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
 
 ## Acknowledgments
 
@@ -137,4 +139,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Inspiration
 * etc
 
-**[Back to top](#table-of-contents)**
+**[Volver arriba](#tabla-de-contenidos)**
