@@ -73,14 +73,15 @@ def message(bot, update):
             req_data, err = fetch.get_stop_info(direction["id"])
             try:
                 data = req_data["destinos"]
+                print("DATA: {}".format(data))
+
+                # Gets the tram last stop that determines the direction
+                direction["destino"] = data[0]["destino"]
+
+                # Appends the tram data
+                direction["trams"] = data
             except KeyError as e:
                 print(e)
-
-            # Gets the tram last stop that determines the direction
-            direction["destino"] = data[0]["destino"]
-
-            # Appends the tram data
-            direction["trams"] = data
 
     # Create the response to the user query
     logger.debug("Creating the response")
