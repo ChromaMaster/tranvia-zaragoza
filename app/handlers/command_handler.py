@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from app import fetch
 from app import stops
 
+from app import logging
+logger = logging.getLogger(__name__)
+
 
 def start(bot, update):
     """ Function than it's executed when the command '/start' is received """
