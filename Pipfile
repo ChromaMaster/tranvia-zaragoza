@@ -15,4 +15,3 @@ python_version = "3.5"
 python-telegram-bot = "*"
 requests = "*"
 pyyaml = "*"
-fuzzywuzzy = {extras = ["speedup"], version = "*"}

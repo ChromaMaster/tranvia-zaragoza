@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c3d7c26a52b1c2103d2d5e54fe184287f129cc415d4568349246e1e91739c9b7"
+            "sha256": "22945e762359772d5e05ebf63c204f80a72d44f08c96b3e3b89f76c3fad884be"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -36,27 +36,12 @@
             ],
             "version": "==0.16.0"
         },
-        "fuzzywuzzy": {
-            "hashes": [
-                "sha256:d40c22d2744dff84885b30bbfc07fab7875f641d070374331777a4d1808b8d4e",
-                "sha256:ecf490216fb4d76b558a03042ff8f45a8782f17326caca1384d834cbaa2c7e6f"
-            ],
-            "index": "pypi",
-            "markers": null,
-            "version": "==0.16.0"
-        },
         "idna": {
             "hashes": [
                 "sha256:156a6814fb5ac1fc6850fb002e0852d56c0c8d2531923a51032d1b70760e186e",
                 "sha256:684a38a6f903c1d71d6d5fac066b58d7768af4de2b832e426ec79c30daa94a16"
             ],
             "version": "==2.7"
-        },
-        "python-levenshtein": {
-            "hashes": [
-                "sha256:033a11de5e3d19ea25c9302d11224e1a1898fe5abd23c61c7c360c25195e3eb1"
-            ],
-            "version": "==0.12.0"
         },
         "python-telegram-bot": {
             "hashes": [
