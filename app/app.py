@@ -38,7 +38,7 @@ def run():
     # Command handlers
     start_handler = CommandHandler('start', command_handler.start)
     help_handler = CommandHandler('help', command_handler.help)
-    about_handler = CommandHandler('sobre_nosotros', command_handler.about)
+    about_handler = CommandHandler('about', command_handler.about)
 
     # Message handlers
     plain_text_handler = MessageHandler(Filters.text, message_handler.message)
