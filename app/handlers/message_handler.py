@@ -21,6 +21,7 @@ from app import fetch
 from app import stops
 from app import logging
 logger = logging.getLogger(__name__)
+import unicodedata
 
 from telegram import ChatAction
 from difflib import SequenceMatcher
@@ -53,6 +54,11 @@ def get_similar_stops(text, min_ratio):
     return similar_stops
 
 
+def get_rid_of_accents(text):
+    return ''.join(c for c in unicodedata.normalize('NFD', text)
+                   if unicodedata.category(c) != 'Mn')
+
+
 def message(bot, update):
     """ Function than it's executed when a plain text message is received """
     logger.debug("Plain message received")
@@ -63,6 +69,9 @@ def message(bot, update):
     bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
 
     text = update.message.text.upper()
+
+    # Get rid of the accents
+    text = get_rid_of_accents(text)
 
     stops_info = dict()
     # stops_info = {
