@@ -1,6 +1,6 @@
 """
 tranvia-zaragoza
-Copyright (C) 2018  Púlsar
+Copyright (C) 2018  ChromaMaster
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
