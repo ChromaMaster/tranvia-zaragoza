@@ -30,16 +30,20 @@ ALL_STOPS_INFO = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructur
 
 # This url will give the tram stop time. Tram stop will be fill the `{}`
 SINGLE_STOP = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia/{}?fl=destinos&rf=html&srsname=utm30n"
+# SINGLE_STOP = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia/{}.json"
 
 
 def do_get_request(url):
     """ Function used to do get requests"""
     headers = {
-        "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0",
-        "content-type": "application/json",
+        # "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:61.0) Gecko/20100101 Firefox/61.0",
+        # "content-type": "application/json",
         "accept": "application/json"
     }
+
     r = requests.get(url, headers=headers)
+
+    # Raises stored HTTPError, if one occurred.
     r.raise_for_status()
 
     return r
@@ -47,8 +51,8 @@ def do_get_request(url):
 
 def get_all_stops_info():
     """ Gets the data (id and name) of all the tram stops so lates queries can 
-    use that kind of data.
-    Returns a tuple (data, err). data is a dict"""
+    use that kind of data.    
+    """
     logger.info("Fetching stops info")
     try:
         req = do_get_request(ALL_STOPS_INFO)
@@ -59,11 +63,12 @@ def get_all_stops_info():
             item["title"] = item["title"].replace("ESPANA", "ESPAÑA")
 
         logger.debug("Data fetched from the api")
-        return (data, False)
+
+        return data
     except requests.exceptions.HTTPError as err:
         # logger.critical("stops data couldn't be fetched")
         logger.critical(err)
-        return (None, True)
+        raise RuntimeError
 
 
 def get_stop_info(stop):
@@ -77,8 +82,8 @@ def get_stop_info(stop):
 
         logger.debug("Stop info fetched from the api")
 
-        return (data, False)
+        return data
     except requests.exceptions.HTTPError as err:
         # logger.critical("stop info couldn't ")
         logger.critical(err)
-        return ("", True)
+        raise RuntimeError

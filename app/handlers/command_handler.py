@@ -27,8 +27,11 @@ logger = logging.getLogger(__name__)
 def start(bot, update):
     """ Function than it's executed when the command '/start' is received """
     logger.debug("Start command received")
+    start_message = """
+    Introduzca el nombre (o parte de el) de una parada para obtener el tiempo \
+de llegada del próximo tranvía"""
     bot.send_message(chat_id=update.message.chat_id,
-                     text="I'm a bot, please talk to me!")
+                     text="")
 
 
 def help(bot, update):

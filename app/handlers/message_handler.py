@@ -41,11 +41,10 @@ def get_similar_stops(text, min_ratio):
     """ Returns all the stops that could be similar by name to 'text' """
     similar_stops = []
     for stop in stops:
+
         similarity_score = 0.0
         for word in stop["title"].split(" "):
             similarity_score += SequenceMatcher(None, text, word).ratio()
-
-        print("{} : {}".format(stop["title"], similarity_score))
 
         if (similarity_score > min_ratio):
             if stop["title"] not in [x["title"] for x in similar_stops]:
@@ -93,7 +92,8 @@ def message(bot, update):
     #     }
     # }
 
-    if(message_filter(text)):
+    # Check if message
+    if message_filter(text):
         # Creates the main structure
         logger.debug("Searching for stop matching")
         for stop in stops:
@@ -116,16 +116,20 @@ def message(bot, update):
             for direction in value["directions"]:
                 logger.debug(
                     "Trying to fetch data for stop: {}".format(direction["id"]))
-                req_data, err = fetch.get_stop_info(direction["id"])
                 try:
+                    req_data = fetch.get_stop_info(direction["id"])
                     data = req_data["destinos"]
-                    print("DATA: {}".format(data))
 
                     # Gets the tram last stop that determines the direction
                     direction["destino"] = data[0]["destino"]
 
                     # Appends the tram data
                     direction["trams"] = data
+                except RuntimeError as e:
+                    msg = "Información sobre la parada inaccesible"
+                    bot.send_message(
+                        chat_id=chat_id, parse_mode='markdown', text=msg)
+                    return
                 except KeyError as e:
                     print(e)
 
@@ -135,6 +139,10 @@ def message(bot, update):
         for key, value in stops_info.items():
             # value["directions"].sort(key=lambda destino:)
             msg += "*{}*\n".format(key)
+
+            # Get rid of the direction if has no trams (e.g end of tram line)
+            value["directions"] = [direction for direction in value["directions"]
+                                   if len(direction["trams"])]
 
             # Sort the directions, this is just to keep the order of names #ocd
             value["directions"].sort(key=lambda item: item["destino"])

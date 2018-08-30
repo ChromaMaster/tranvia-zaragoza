@@ -36,7 +36,7 @@ app_config = config['app']
 logger.debug("Config loaded...")
 
 # Fetchs the data from the api about stop id and name
-stops, err = fetch.get_all_stops_info()
+stops = fetch.get_all_stops_info()
 
 # Import all handlers
 from .handlers import message_handler
