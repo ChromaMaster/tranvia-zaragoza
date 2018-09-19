@@ -70,6 +70,7 @@ docker build -t <nombre_de_la_imagen> .
 ```
 
 - Lanza el contenedor:
+ 
 ```sh
 docker run -d --name tranvia --restart=unless-stopped <nombre_de_la_imagen>
 ```
