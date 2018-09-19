@@ -10,16 +10,8 @@ de zaragoza a las distintas paradas
     - [Comenzando](#comenzando)
         - [Requisitos](#requisitos)
         - [Instalacion](#instalacion)
-    - [Running the tests](#running-the-tests)
-        - [Break down into end to end tests](#break-down-into-end-to-end-tests)
-        - [And coding style tests](#and-coding-style-tests)
-    - [Deployment](#deployment)
-    - [Built With](#built-with)
-    - [Contributing](#contributing)
-    - [Versioning](#versioning)
-    - [Authors](#authors)
+        - [Usando Docker](#usando-docker)
     - [License](#license)
-    - [Acknowledgments](#acknowledgments)
 
 ## Comenzando
 
@@ -67,76 +59,25 @@ Para acceder a este, una vez en el mismo directorio del proyecto se ejecuta
 
 **[Volver arriba](#tabla-de-contenidos)**
 
-## Running the tests
+### Usando Docker
 
-Explain how to run the automated tests for this system
+Para desplegar este bot utilizando Docker puedes seguir los siguientes pasos.
 
-**[Volver arriba](#tabla-de-contenidos)**
+- Constryue la imagen utilizando el [Dockerfile](Dockerfile) proporcionado
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```sh
+docker build -t <nombre_de_la_imagen> .
 ```
 
-**[Volver arriba](#tabla-de-contenidos)**
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+- Lanza el contenedor:
+```sh
+docker run -d --name tranvia --restart=unless-stopped <nombre_de_la_imagen>
 ```
 
-**[Volver arriba](#tabla-de-contenidos)**
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-**[Volver arriba](#tabla-de-contenidos)**
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-**[Volver arriba](#tabla-de-contenidos)**
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-**[Volver arriba](#tabla-de-contenidos)**
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-**[Volver arriba](#tabla-de-contenidos)**
-
-## Authors
-
-* **....** - *Initial work* - [...](https://github.com)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-**[Volver arriba](#tabla-de-contenidos)**
+**NOTA**: No te olvides de poner antes tu token en el fichero de configuración.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-**[Volver arriba](#tabla-de-contenidos)**
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Este bot utiliza una licencia GPLv3 - Ver [LICENSE](LICENSE) para más detalles
 
 **[Volver arriba](#tabla-de-contenidos)**
