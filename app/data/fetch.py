@@ -59,8 +59,8 @@ def get_all_stops_info():
         data = json.loads(req.text)["result"]
 
         # The api replaces all the 'ñ' with 'n' so this casts backwards
-        for item in data:
-            item["title"] = item["title"].replace("ESPANA", "ESPAÑA")
+        # for item in data:
+        #     item["title"] = item["title"].replace("ESPANA", "ESPAÑA")
 
         logger.debug("Data fetched from the api")
 
