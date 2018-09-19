@@ -28,10 +28,10 @@ def start(bot, update):
     """ Function than it's executed when the command '/start' is received """
     logger.debug("Start command received")
     start_message = """
-    Introduzca el nombre (o parte de el) de una parada para obtener el tiempo \
-de llegada del próximo tranvía"""
+    Bienvenido, para utilizar el bot introduzca el nombre de un parada (o parte de él) \
+para ver el tiempo de llegada del próximo tranvía"""
     bot.send_message(chat_id=update.message.chat_id,
-                     text="")
+                     text=start_message)
 
 
 def help(bot, update):
