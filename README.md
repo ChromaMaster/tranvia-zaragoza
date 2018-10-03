@@ -11,6 +11,7 @@ de zaragoza a las distintas paradas
         - [Requisitos](#requisitos)
         - [Instalacion](#instalacion)
         - [Usando Docker](#usando-docker)
+        - [Usando Docker Compose](#usando-docker-compose)
     - [License](#license)
 
 ## Comenzando
@@ -76,6 +77,14 @@ docker run -d --name tranvia --restart=unless-stopped <nombre_de_la_imagen>
 ```
 
 **NOTA**: No te olvides de poner antes tu token en el fichero de configuración.
+
+### Usando Docker Compose
+
+Utilizando docker-compose puedes desplegar utilizando el siguiente comando:
+
+```sh
+docker-compose up -d
+```
 
 ## License
 
