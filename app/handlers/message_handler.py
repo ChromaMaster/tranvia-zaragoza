@@ -126,7 +126,10 @@ def message(bot, update):
                     # Appends the tram data
                     direction["trams"] = data
                 except RuntimeError as e:
-                    msg = "Información sobre la parada inaccesible"
+                    # msg = "Información sobre la parada inaccesible"
+                    msg = "Oops! Parece que la base de datos del Ayuntamiento Zaragoza no funciona 😢\n\n"\
+                        "Vuelve a intentarlo en otro momento\n\n" \
+                        "Sentimos las molestias"
                     bot.send_message(
                         chat_id=chat_id, parse_mode='markdown', text=msg)
                     return
