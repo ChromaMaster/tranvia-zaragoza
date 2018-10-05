@@ -29,6 +29,7 @@ from app import command_handler
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
+from telegram.ext import CallbackQueryHandler
 
 
 def run():
@@ -43,12 +44,17 @@ def run():
     # Message handlers
     plain_text_handler = MessageHandler(Filters.text, message_handler.message)
 
+    # Inline queries handlers
+    inline_queries_handler = CallbackQueryHandler(message_handler.inline_query)
+
     # Adding the handlers
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(about_handler)
 
     dispatcher.add_handler(plain_text_handler)
+
+    dispatcher.add_handler(inline_queries_handler)
 
     # Starting the bot
     updater.start_polling()

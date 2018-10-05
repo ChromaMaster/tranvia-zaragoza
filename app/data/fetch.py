@@ -66,14 +66,12 @@ def get_all_stops_info():
 
         return data
     except requests.exceptions.HTTPError as err:
-        # logger.critical("stops data couldn't be fetched")
         logger.critical(err)
         raise RuntimeError
 
 
 def get_stop_info(stop):
-    """ Gets the data of a stop.
-    Returns a tuple (data, err). data is a dict """
+    """ Gets the data of a stop. """
     try:
         logger.debug(SINGLE_STOP.format(stop))
         req = do_get_request(SINGLE_STOP.format(stop))
