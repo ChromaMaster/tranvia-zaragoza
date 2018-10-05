@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
 import datetime
+from pytz import timezone
 from app import fetch
 from app import stops
 from app import logging
@@ -88,11 +89,12 @@ def inline_query(bot, update):
 
 
 def create_message(stops_info):
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(timezone('Europe/Madrid'))
     msg = ""
     for key, value in stops_info.items():
         # value["directions"].sort(key=lambda destino:)
-        msg += "*{}* (Actualizado {}:{})\n".format(key, now.hour, now.minute)
+        msg += "*{}* (Actualizado {:02}:{:02})\n".format(key,
+                                                         now.hour, now.minute)
 
         # Get rid of the direction if has no trams (e.g end of tram line)
         value["directions"] = [direction for direction in value["directions"]

@@ -39,6 +39,7 @@ instalarlas, simplemente ejecuta el comando `pipenv install`
 - [Python Telegram Bot](https://github.com/python-telegram-bot/python-telegram-bot)
 - [Requests](http://docs.python-requests.org/en/master/)
 - [PyYAML](http://pyyaml.org/wiki/PyYAMLDocumentation)
+- [pytz](http://pytz.sourceforge.net/)
 
 **[Volver arriba](#tabla-de-contenidos)**
 
