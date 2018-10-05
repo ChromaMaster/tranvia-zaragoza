@@ -1,4 +1,4 @@
-FROM python:3.5-alpine
+FROM python:3.5-slim
 
 ENV basedir /tranvia
 ENV LC_ALL C.UTF-8
