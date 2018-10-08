@@ -43,6 +43,8 @@ def run():
 
     # Message handlers
     plain_text_handler = MessageHandler(Filters.text, message_handler.message)
+    location_handler = MessageHandler(
+        Filters.location | Filters.venue, message_handler.location)
 
     # Inline queries handlers
     inline_queries_handler = CallbackQueryHandler(message_handler.inline_query)
@@ -53,6 +55,7 @@ def run():
     dispatcher.add_handler(about_handler)
 
     dispatcher.add_handler(plain_text_handler)
+    dispatcher.add_handler(location_handler)
 
     dispatcher.add_handler(inline_queries_handler)
 

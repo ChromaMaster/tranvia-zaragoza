@@ -60,34 +60,6 @@ def get_rid_of_accents(text):
                    if unicodedata.category(c) != 'Mn')
 
 
-def inline_query(bot, update):
-    query = update.callback_query
-    chat_id = query.message.chat_id
-    message_id = query.message.message_id
-
-    # Sends feedback to user that the bot is actually do someting
-    bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
-
-    stops_info = get_stops_matching(query.data)
-
-    try:
-        stops_info = get_stops_info(stops_info)
-    except RuntimeError:
-        msg = "Oops! Parece que la base de datos del Ayuntamiento Zaragoza no funciona 😢\n\n"\
-            "Vuelve a intentarlo en otro momento\n\n" \
-            "Sentimos las molestias"
-        bot.send_message(chat_id=chat_id, parse_mode='markdown', text=msg)
-        return
-
-    msg = create_message(stops_info)
-
-    keyboard = [[InlineKeyboardButton(
-        "Actualizar", callback_data=query.data)]]
-
-    bot.edit_message_text(
-        chat_id=chat_id, parse_mode='markdown', text=msg, message_id=message_id, reply_markup=InlineKeyboardMarkup(keyboard))
-
-
 def create_message(stops_info):
     now = datetime.datetime.now(timezone('Europe/Madrid'))
     msg = ""
@@ -163,6 +135,34 @@ def get_stops_info(stops_info):
     return stops_info
 
 
+def inline_query(bot, update):
+    query = update.callback_query
+    chat_id = query.message.chat_id
+    message_id = query.message.message_id
+
+    # Sends feedback to user that the bot is actually do someting
+    bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+
+    stops_info = get_stops_matching(query.data)
+
+    try:
+        stops_info = get_stops_info(stops_info)
+    except RuntimeError:
+        msg = "Oops! Parece que la base de datos del Ayuntamiento Zaragoza no funciona 😢\n\n"\
+            "Vuelve a intentarlo en otro momento\n\n" \
+            "Sentimos las molestias"
+        bot.send_message(chat_id=chat_id, parse_mode='markdown', text=msg)
+        return
+
+    msg = create_message(stops_info)
+
+    keyboard = [[InlineKeyboardButton(
+        "Actualizar", callback_data=query.data)]]
+
+    bot.edit_message_text(
+        chat_id=chat_id, parse_mode='markdown', text=msg, message_id=message_id, reply_markup=InlineKeyboardMarkup(keyboard))
+
+
 def message(bot, update):
     chat_id = update.message.chat_id
 
@@ -181,7 +181,7 @@ def message(bot, update):
     #         "direction": [
     #             {
     #                 "id": 1311,
-    #                 "tram": [
+    #                 "trams": [
     #                     {
     #                         "destino": "MAGO DE OZ",
     #                         "linea": "L1",
@@ -244,3 +244,60 @@ def message(bot, update):
     # logger.info(json.dumps(stops_info, sort_keys=True, indent=4))
     msg = create_message(stops_info)
     send_message(bot, update, msg, text)
+
+
+def location(bot, update):
+    """ Function than it's executed when a location message is received """
+    logger.debug("Location message received")
+
+    chat_id = update.message.chat_id
+
+    # Sends feedback to user that the bot is actually do someting
+    bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+
+    latitud = update.message.location.latitude
+    longitud = update.message.location.longitude
+
+    # distance from the location
+    distance = 300
+
+    logger.info("Lat: {} | Lon: {}".format(latitud, longitud))
+
+    stops_info = dict()
+
+    try:
+        req_data = fetch.get_stop_by_location(longitud, latitud, distance)
+        stops = req_data["result"]
+        logger.info(json.dumps(stops, sort_keys=True, indent=4))
+
+        for stop in stops:
+            logger.info("Stop: {}\n".format(stop["title"]))
+            # stop = stop["title"]
+            # Create a key with the stop value if not exists
+            if not stop["title"] in stops_info:
+                stops_info[stop["title"]] = {
+                    "direction": []
+                }
+
+                for destino in stop["destinos"]:
+                    stops_info[stop["title"]]["direction"].append(
+                        destino["minutos"])
+        # TODO: THIS SHIT
+        logger.info(json.dumps(stops_info, sort_keys=True, indent=4))
+        # logger.info(stops_info)
+        # #         for destino in stop["destino"]:
+        #             if not destino["destino"] in stops_info[stop["title"]]["direction"]:
+        #                 stops_info[stop["title"]]["direction"] = {}
+
+        #             stops_info[stop["title"]]["direction"]["destino"] =
+
+    except RuntimeError as e:
+        # msg = "Información sobre la parada inaccesible"
+        # msg = "Oops! Parece que la base de datos del Ayuntamiento Zaragoza no funciona 😢\n\n"\
+        #     "Vuelve a intentarlo en otro momento\n\n" \
+        #     "Sentimos las molestias"
+        # bot.send_message(
+        #     chat_id=chat_id, parse_mode='markdown', text=msg)
+        raise
+    except KeyError as e:
+        print(e)

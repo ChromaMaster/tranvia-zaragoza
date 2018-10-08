@@ -32,6 +32,8 @@ ALL_STOPS_INFO = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructur
 SINGLE_STOP = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia/{}?fl=destinos&rf=html&srsname=utm30n"
 # SINGLE_STOP = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia/{}.json"
 
+SINGLE_STOP_BY_LOCATION = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia?rf=html&srsname=wgs84&start=0&rows=50&point={longitude}%2C{latitude}&distance={distance}"
+
 
 def do_get_request(url):
     """ Function used to do get requests"""
@@ -83,5 +85,23 @@ def get_stop_info(stop):
         return data
     except requests.exceptions.HTTPError as err:
         # logger.critical("stop info couldn't ")
+        logger.critical(err)
+        raise RuntimeError
+
+
+def get_stop_by_location(longitude, latitude, distance):
+    """ Gets the data of a stop."""
+    try:
+        logger.debug(SINGLE_STOP_BY_LOCATION.format(
+            longitude=longitude, latitude=latitude, distance=distance))
+        req = do_get_request(SINGLE_STOP_BY_LOCATION.format(
+            longitude=longitude, latitude=latitude, distance=distance))
+
+        data = json.loads(req.text)
+
+        logger.debug("Stop info fetched from the api")
+
+        return data
+    except requests.exceptions.HTTPError as err:
         logger.critical(err)
         raise RuntimeError
