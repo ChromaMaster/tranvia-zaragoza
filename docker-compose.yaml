@@ -1,6 +1,40 @@
 version: "2"
 
+# Need to uncomment this if you want to monitor the bot. Is the network which
+# containers will use to communicate each other
+# networks:
+#   internal-network:
+#     driver: bridge
+
 services:
   app:
     build: .
     restart: unless-stopped
+    environment:
+      - BOT_TOKEN=668122937:AAGWJQXewYSPOa3dSX6DKyYl84DpZq6JiSQ
+      # Needed if you want to use admin commands. Eg. monitoring stats
+      # - BOT_ADMIN_ID=
+      # Optional monitoring configuration, if not defined monitoring will be disabled
+      # - MONITORING_HOST=database
+      # - MONITORING_PORT=8086
+      # - MONITORING_USER=root
+      # - MONITORING_PASS=root
+      # - MONITORING_DATABASE_NAME=monitoring
+    # Uncomment if you want to enable monitoring. Service needs to attach to the
+    # network and wait for database to start
+    # networks:
+    #  - internal-network
+    # depends_on:
+    #  - influxdb
+  
+  # IMPORTANT: Uncomment the lines below. This will create the influxdb container
+  # used to monitor the bot
+  # influxdb:
+  #   image: influxdb 
+  #   restart: unless-stopped
+  #   networks:
+  #     internal-network:
+  #       aliases:
+  #         - database
+  #   volumes:
+  #     - ./influxdb:/var/lib/influxdb

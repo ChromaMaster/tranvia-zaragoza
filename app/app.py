@@ -16,11 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
+import os
+import sys
 from . import logging
 logger = logging.getLogger(__name__)
 
-from app import app_config
 from app import stops
 
 from app import message_handler
@@ -33,13 +33,21 @@ from telegram.ext import CallbackQueryHandler
 
 
 def run():
-    updater = Updater(token=app_config['token'])
+    try:
+        BOT_TOKEN = os.environ["BOT_TOKEN"]
+    except KeyError:
+        logger.critical("BOT_TOKEN ENVIRONMENT VARIABLE NOT DEFINED")
+        sys.exit(1)
+
+    updater = Updater(token=BOT_TOKEN)
     dispatcher = updater.dispatcher
 
     # Command handlers
     start_handler = CommandHandler('start', command_handler.start)
     help_handler = CommandHandler('help', command_handler.help)
     about_handler = CommandHandler('about', command_handler.about)
+    stats_handler = CommandHandler(
+        'stats', command_handler.stats, pass_args=True)
 
     # Message handlers
     plain_text_handler = MessageHandler(Filters.text, message_handler.message)
@@ -51,6 +59,7 @@ def run():
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(about_handler)
+    dispatcher.add_handler(stats_handler)
 
     dispatcher.add_handler(plain_text_handler)
 

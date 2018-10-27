@@ -20,18 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import logging
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 from .data import fetch
 
 # Loads the config
-logger.debug("Loading the config...")
-import yaml
-config_path = os.path.join(os.environ['BASE_PATH'], 'etc', 'config.yaml')
-with open(config_path, 'r') as ymlfile:
-    config = yaml.load(ymlfile)
+# logger.debug("Loading the config...")
+# import yaml
+# config_path = os.path.join(os.environ['BASE_PATH'], 'etc', 'config.yaml')
+# with open(config_path, 'r') as ymlfile:
+#     config = yaml.load(ymlfile)
 
-app_config = config['app']
+# app_config = config['app']
 
 logger.debug("Config loaded...")
 
@@ -41,5 +41,7 @@ stops = fetch.get_all_stops_info()
 # Import all handlers
 from .handlers import message_handler
 from .handlers import command_handler
+
+from . import monitoring
 
 from . import app
