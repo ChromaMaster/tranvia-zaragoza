@@ -40,7 +40,9 @@ def monitor(f):
     def wrapper(bot, update, *args, **kwargs):
 
         # Do not monitor if host not set
-        if MONITORING_HOST is None:
+        if(MONITORING_HOST is None or MONITORING_PORT is None or
+           MONITORING_USER is None or MONITORING_PASS is None or
+           MONITORING_DATABASE_NAME is None):
             return f(bot, update, *args, **kwargs)
 
         now = datetime.datetime.now(timezone('Europe/Madrid'))
@@ -216,8 +218,9 @@ def get_stop_stats(init_date, end_date):
 
 
 # If monitoring env vars has been provided, connect to database.
-if(MONITORING_HOST and MONITORING_PORT and MONITORING_USER and MONITORING_PASS
-   and MONITORING_DATABASE_NAME):
+if(MONITORING_HOST is not None and MONITORING_PORT is not None and
+   MONITORING_USER is not None and MONITORING_PASS is not None and
+   MONITORING_DATABASE_NAME is not None):
 
     logger.info("Monitoring enabled")
 

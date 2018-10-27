@@ -24,7 +24,8 @@ def only_whitelist(f):
                     update.effective_user.id)
             bot.send_message(chat_id=update.message.chat_id, text=message)
             return
-        if update.effective_user.id == admin_id:
+
+        if str(update.effective_user.id) != str(admin_id):
             message = "No esta autorizado a utilizar este comando"
             bot.send_message(chat_id=update.message.chat_id, text=message)
             return
