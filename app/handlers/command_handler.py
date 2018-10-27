@@ -19,9 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from app import fetch
 from app import stops
+from app import monitoring
+from app import access_control
 
 from app import logging
 logger = logging.getLogger(__name__)
+
+from telegram import ChatAction
 
 
 def start(bot, update):
@@ -56,3 +60,40 @@ https://gitlab.unizar.es/pulsar/tranvia-zaragoza"""
 
     bot.send_message(chat_id=update.message.chat_id,
                      parse_mode='markdown', text=about_message)
+
+
+@access_control.only_whitelist
+def stats(bot, update, args):
+    """   """
+    chat_id = update.message.chat_id
+
+    # TODO: Complete this to allow getting stats between two dates.
+
+    # if len(args) < 2:
+    #     msg = "USAGE: "
+    #     bot.send_message(chat_id=update.message.chat_id,
+    #                      parse_mode='markdown', text=msg)
+    # Get args
+    # init_date = args[0]
+    # end_date = args[1]
+
+    init_date = ""
+    end_date = ""
+
+    # Sends feedback to user that the bot is actually do someting
+    bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+
+    # Get the current stats of usage
+    global_stats = monitoring.get_global_stats(init_date, end_date)
+    users_stats = monitoring.get_user_stats(init_date, end_date)
+    stop_stats = monitoring.get_stop_stats(init_date, end_date)
+
+    msg = "*GLOBAL STATS*\n" \
+        "\t{}\n\n" \
+        "*USER STATS*\n" \
+        "\t{}\n\n" \
+        "*STOP STATS*\n" \
+        "\t{}\n".format(global_stats, users_stats, stop_stats)
+
+    bot.send_message(chat_id=update.message.chat_id,
+                     parse_mode='markdown', text=msg)

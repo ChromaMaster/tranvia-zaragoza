@@ -25,6 +25,8 @@ from app import logging
 logger = logging.getLogger(__name__)
 import unicodedata
 
+from app import monitoring
+
 from telegram import ChatAction, InlineKeyboardButton, InlineKeyboardMarkup
 from difflib import SequenceMatcher
 
@@ -56,11 +58,14 @@ def get_similar_stops(text, min_ratio):
 
 
 def get_rid_of_accents(text):
+    """  """
     return ''.join(c for c in unicodedata.normalize('NFD', text)
                    if unicodedata.category(c) != 'Mn')
 
 
+@monitoring.monitor
 def inline_query(bot, update):
+    """  """
     query = update.callback_query
     chat_id = query.message.chat_id
     message_id = query.message.message_id
@@ -89,6 +94,7 @@ def inline_query(bot, update):
 
 
 def create_message(stops_info):
+    """   """
     now = datetime.datetime.now(timezone('Europe/Madrid'))
     msg = ""
     for key, value in stops_info.items():
@@ -112,6 +118,7 @@ def create_message(stops_info):
 
 
 def send_message(bot, update, message, original_query):
+    """   """
     logger.info(message)
     chat_id = update.message.chat_id
     keyboard = [[InlineKeyboardButton(
@@ -122,6 +129,7 @@ def send_message(bot, update, message, original_query):
 
 
 def get_stops_matching(text):
+    """   """
     stops_info = {}
     # Get data if any existing stop match the user query
     for stop in stops:
@@ -143,6 +151,7 @@ def get_stops_matching(text):
 
 
 def get_stops_info(stops_info):
+    """   """
     # Fill the dict with api data
     for _, value in stops_info.items():
         for direction in value["directions"]:
@@ -163,7 +172,9 @@ def get_stops_info(stops_info):
     return stops_info
 
 
+@monitoring.monitor
 def message(bot, update):
+    """   """
     chat_id = update.message.chat_id
 
     # Sends feedback to user that the bot is actually do someting
@@ -206,9 +217,9 @@ def message(bot, update):
     # }
 
     if not message_filter(text):
-        msg = "El nombre de la parada no es valido.\n" \
+        msg = "El nombre de la parada no es válido.\n" \
             "El nombre debe tener al menos 4 caracteres."\
-            "Para mas ayuda utiliza /help"
+            "Para más ayuda utiliza /help"
         bot.send_message(chat_id=chat_id, parse_mode='markdown',
                          text=msg, reply_markup=None)
         return

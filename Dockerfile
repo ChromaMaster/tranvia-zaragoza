@@ -12,7 +12,5 @@ COPY . .
 RUN     pip install pipenv
 RUN     pipenv install --system
 
-VOLUME $basedir
-
 # ENTRYPOINT "pipenv run python main.py"
 ENTRYPOINT ["python3", "main.py"]
