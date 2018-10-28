@@ -89,11 +89,11 @@ def stats(bot, update, args):
     stop_stats = monitoring.get_stop_stats(init_date, end_date)
 
     msg = "*GLOBAL STATS*\n" \
-        "\t{}\n\n" \
+        "{}\n\n" \
         "*USER STATS*\n" \
-        "\t{}\n\n" \
+        "{}\n\n" \
         "*STOP STATS*\n" \
-        "\t{}\n".format(global_stats, users_stats, stop_stats)
+        "{}\n".format(global_stats, users_stats, stop_stats)
 
     bot.send_message(chat_id=update.message.chat_id,
                      parse_mode='markdown', text=msg)

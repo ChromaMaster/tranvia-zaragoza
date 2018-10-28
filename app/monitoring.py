@@ -140,16 +140,16 @@ def get_global_stats(init_date, end_date):
     for key, item in res.items():
         action_count[key[1]["tag_action"]] = list(item)[0]["count_stop"]
 
-    msg += "\tNumber of **new** requests: {} ({:.1%})\n".format(
+    msg += "Number of *new* requests: {} ({:.1%})\n".format(
         action_count.get("new", 0), action_count.get("new", 0)/number_of_requests)
 
-    msg += "\tNumber of **update** requests: {} ({:.1%})\n".format(
+    msg += "Number of *update* requests: {} ({:.1%})\n".format(
         action_count.get("update", 0), action_count.get("update", 0)/number_of_requests)
 
     #
     # RUSH HOURS
     #
-    msg += "\tRush Hours:\n"
+    msg += "*Rush Hours*:\n"
     res = connection.query(
         "SELECT count(*) FROM requests GROUP BY time(1h) TZ('Europe/Madrid')")
     dates = list(res.get_points())
@@ -167,8 +167,8 @@ def get_global_stats(init_date, end_date):
     sorted_hours = sorted(hours, key=hours.get, reverse=True)
 
     for hour in sorted_hours[0:5]:
-        msg += "\t\tHour {}: {} ({:.1%})\n".format(hour,
-                                                   hours[hour], hours[hour]/number_of_requests)
+        msg += "Hour {}: {} ({:.1%})\n".format(hour,
+                                               hours[hour], hours[hour]/number_of_requests)
 
     return msg
 
@@ -180,27 +180,40 @@ def get_user_stats(init_date, end_date):
     #
     # TOTAL USER COUNT
     #
-    res = connection.query(
-        "SHOW TAG VALUES CARDINALITY FROM requests WITH KEY = tag_user_id")
+    res = connection.query("SELECT count(distinct(user_id)) FROM requests")
+    # res = connection.query(
+    #     "SHOW TAG VALUES CARDINALITY FROM requests WITH KEY = tag_user_id")
 
     # Checks if there is any requests yet
     if len(list(res.get_points())) == 0:
         return
 
     number_of_users = list(res.get_points())[0]["count"]
-    msg = "Users count: {}".format(number_of_users)
+    msg = "*Total* user count: {}\n".format(number_of_users)
 
     #
     # CURRENT DAY USER COUNT
     #
+    res = connection.query(
+        "SELECT count(distinct(user_id)) FROM requests WHERE time > NOW()-1d")
+    number_of_users = list(res.get_points())[0]["count"]
+    msg += "Last *24h* user count: {}\n".format(number_of_users)
 
     #
     # CURRENT WEEK USER COUNT
     #
+    res = connection.query(
+        "SELECT count(distinct(user_id)) FROM requests WHERE time > NOW()-7d")
+    number_of_users = list(res.get_points())[0]["count"]
+    msg += "Last *7 day* user count: {}\n".format(number_of_users)
 
     #
     # CURRENT MONTH USER COUNT
     #
+    res = connection.query(
+        "SELECT count(distinct(user_id)) FROM requests WHERE time > NOW()-30d")
+    number_of_users = list(res.get_points())[0]["count"]
+    msg += "Last *30 day* user count: {}".format(number_of_users)
 
     return msg
 
@@ -219,14 +232,14 @@ def get_stop_stats(init_date, end_date):
     if len(list(res.get_points())) == 0:
         return
 
-    msg = "Stops ranking: \n"
+    msg = "*Stops ranking*: \n"
 
     for key, item in res.items():
         ranking.append((key[1]["tag_stop"], list(item)[0]["count_stop"]))
 
     ranking.sort(key=lambda x: x[1], reverse=True)
     for stop, count in ranking:
-        msg += "\t\t{}: {}\n".format(stop, count)
+        msg += "{}: {}\n".format(stop, count)
 
     return msg
 
