@@ -103,6 +103,8 @@ def insert_row(user_id, now, action, stop):
                 },
                 "time": now,
                 "fields": {
+                    "user_id": user_id,
+                    "action": action,
                     "stop": stop
                 }
             }
@@ -176,7 +178,7 @@ def get_user_stats(init_date, end_date):
     """ Return stats related to users usage. Eg. total count of users, mean of usage per user, ... """
 
     #
-    # USER COUNT
+    # TOTAL USER COUNT
     #
     res = connection.query(
         "SHOW TAG VALUES CARDINALITY FROM requests WITH KEY = tag_user_id")
@@ -187,6 +189,18 @@ def get_user_stats(init_date, end_date):
 
     number_of_users = list(res.get_points())[0]["count"]
     msg = "Users count: {}".format(number_of_users)
+
+    #
+    # CURRENT DAY USER COUNT
+    #
+
+    #
+    # CURRENT WEEK USER COUNT
+    #
+
+    #
+    # CURRENT MONTH USER COUNT
+    #
 
     return msg
 
