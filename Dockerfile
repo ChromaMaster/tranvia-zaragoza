@@ -9,6 +9,7 @@ WORKDIR $basedir
 
 COPY . .
 
+RUN     apt-get update -y && apt-get install -y build-essential libssl-dev libffi-dev python-dev
 RUN     pip install pipenv
 RUN     pipenv install --system
 

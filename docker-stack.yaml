@@ -1,0 +1,53 @@
+version: "3"
+
+# Need to uncomment this if you want to monitor the bot. Is the network which
+# containers will use to communicate each other
+# networks:
+#  internal-network:
+
+services:
+  app:
+    image: chromamaster/tranvia_zaragoza_bot
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == worker
+      labels:
+        - "traefik.enable=false"
+    # networks:
+    #  - internal-network
+    # depends_on:
+    #  - influxdb
+    environment:
+      - BOT_TOKEN=<YOUR_TOKEN_HERE>
+      # Needed if you want to use admin commands. Eg. monitoring stats
+      # - BOT_ADMIN_ID=
+      # Optional monitoring configuration, if not defined monitoring will be disabled
+      # - MONITORING_HOST=db
+      # - MONITORING_PORT=8086
+      # - MONITORING_USER=root
+      # - MONITORING_PASS=root
+      # - MONITORING_DATABASE_NAME=monitoring
+    # Uncomment if you want to enable monitoring. Service needs to attach to the
+    # network and wait for database to start
+  
+  # IMPORTANT: Uncomment the lines below. This will create the influxdb container
+  # used to monitor the bot
+  # db:
+  #  image: influxdb
+  #  deploy:
+  #    replicas: 1
+  #    restart_policy:
+  #      condition: on-failure
+  #    placement:
+  #      constraints:
+  #        - node.role == worker
+  #    labels:
+  #     - "traefik.enable=false"
+  #  networks:
+  #    internal-network:
+  #  volumes:
+  #    - ./influxdb:/var/lib/influxdb
