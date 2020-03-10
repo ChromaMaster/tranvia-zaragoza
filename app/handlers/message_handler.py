@@ -155,20 +155,26 @@ def get_stops_info(stops_info):
     # Fill the dict with api data
     for _, value in stops_info.items():
         for direction in value["directions"]:
-            try:
+            try:    
                 # API requests
-                req_data = fetch.get_stop_info(direction["id"])
+                req_data = fetch.get_stop_info(direction["id"]) 
+                
+                # If the api does not return data, the api is down
+                if not req_data:                    
+                    raise RuntimeError
+                
                 data = req_data["destinos"]
                 # Gets the tram last stop that determines the direction
                 direction["destino"] = data[0]["destino"]
 
                 # Appends the tram data
-                direction["trams"] = data
+                direction["trams"] = data                                                
+                    
             except RuntimeError as e:
                 raise
             except KeyError as e:
                 print(e)
-
+    
     return stops_info
 
 
@@ -243,8 +249,8 @@ def message(bot, update):
         bot.send_message(chat_id=chat_id, parse_mode='markdown', text=msg)
         return
 
-    try:
-        stops_info = get_stops_info(stops_info)
+    try:        
+        stops_info = get_stops_info(stops_info)        
     except RuntimeError:
         msg = "Oops! Parece que la base de datos del Ayuntamiento Zaragoza no funciona 😢\n\n"\
             "Vuelve a intentarlo en otro momento\n\n" \
